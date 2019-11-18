@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">Smart Mirror</string>
+
+    <string name="precip_future" formatted="false">%s in %d mins</string>
+
+    <string name="precip_rain">Rain</string>
+    <string name="precip_snow">Snow</string>
+    <string name="precip_hail">Hail</string>
+    <string name="precip_unknown">Unknown precipitation</string>
+
+    <string name="section_now">now</string>
+    <string name="section_today">later</string>
+
+    <string name="precip_now">Currently %s</string>
+
+    <string name="precip_rain_now">raining</string>
+    <string name="precip_snow_now">snowing</string>
+    <string name="precip_hail_now">hailing</string>
+    <string name="precip_unknown_now">unknown precipitation</string>
+
+    <string name="type_app">App</string>
+    <string name="type_net">Network</string>
+    <string name="type_power">Power</string>
+</resources>

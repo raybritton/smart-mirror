@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="@dimen/normal_padding"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        style="@style/Weather.SectionTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/section_now" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        tools:ignore="UseCompoundDrawables">
+
+        <ImageView
+            android:id="@+id/weather_current_icon"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:contentDescription="@null"
+            tools:src="@drawable/ic_cloud" />
+
+        <TextView
+            android:id="@+id/weather_current_temperature"
+            style="@style/Weather.Temperature"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="30C" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/weather_current_summary"
+        style="@style/Weather.Summary"
+        android:layout_width="500dp"
+        android:layout_height="wrap_content"
+        android:gravity="start|center_vertical"
+        tools:text="Rain in 5 mins" />
+
+    <TextView
+        style="@style/Weather.SectionTitle"
+        android:layout_marginTop="@dimen/double_margin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/section_today" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        tools:ignore="UseCompoundDrawables">
+
+        <ImageView
+            android:id="@+id/weather_today_icon"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:contentDescription="@null"
+            tools:src="@drawable/ic_cloud" />
+
+        <TextView
+            android:id="@+id/weather_today_temperature"
+            style="@style/Weather.Temperature"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="30C" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/weather_summary"
+        style="@style/Weather.Summary"
+        android:layout_width="500dp"
+        android:layout_height="wrap_content"
+        android:gravity="start|center_vertical"
+        tools:text="Possible light rain starting later this afternoon, continuing until tonight" />
+
+    <TextView
+        android:id="@+id/weather_error"
+        style="@style/Weather.Error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Error updating weather: NullPointerException" />
+</LinearLayout>
