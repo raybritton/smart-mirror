@@ -36,47 +36,65 @@ class WeatherView : FrameLayout {
             )
             weather_error.visibility = View.GONE
 
-            weather_current_icon.setImageResource(weather.currently.getIcon())
-            if ((weather.currently.isPercip() || weather.minutely.hasPrecip()) && weather.currently.windSpeed > 15) {
+            weather_current_icon.setImageResource(weather.now.icon)
+            if (weather.soon.isPrecip && weather.now.windSpeed > 15) {
                 weather_current_temperature.text = String.format(
-                    "%.0f°C,  %.0f mph",
-                    weather.currently.temperature,
-                    Util.kmphToMph(weather.currently.windSpeed)
+                    "%d°C,  %d mph",
+                    weather.now.temperature,
+                    Util.kmphToMph(weather.now.windSpeed)
                 )
             } else {
-                weather_current_temperature.text = String.format("%.0f°C", weather.currently.temperature)
+                weather_current_temperature.text = String.format("%d°C", weather.now.temperature)
             }
 
-            if (weather.minutely.hasPrecip()) {
-                val minsToPrecip = weather.minutely.timeToPrecip()
-
+            if (weather.soon.isPrecip) {
+                val minsToPrecip = weather.soon.timeToPrecip
+                weather_current_summary.visibility = View.VISIBLE
                 if (minsToPrecip < 5) {
                     weather_current_summary.text = context.getString(
                         R.string.precip_now,
-                        context.getString(weather.minutely.precipType()!!.current)
+                        context.getString(weather.soon.precipType.current)
                     )
                 } else {
                     weather_current_summary.text = context.getString(
                         R.string.precip_future,
-                        context.getString(weather.minutely.precipType()!!.future),
+                        context.getString(weather.soon.precipType.future),
                         minsToPrecip
                     )
                 }
+            } else {
+                weather_current_summary.visibility = View.GONE
             }
 
-            weather_today_icon.setImageResource(weather.hourly.getIcon())
-            if (weather.hourly.hasPrecip() && weather.hourly.windSpeed() > 15) {
+            weather_today_icon.setImageResource(weather.today.icon)
+            if (weather.today.isPrecip && weather.today.windSpeed > 15) {
                 weather_today_temperature.text = String.format(
-                    "%.0f - %.0f°C,  %.0f mph",
-                    weather.hourly.minTemp(),
-                    weather.hourly.maxTemp(),
-                    Util.kmphToMph(weather.hourly.windSpeed())
+                    "%d - %d°C,  %d mph",
+                    weather.today.minTemp,
+                    weather.today.maxTemp,
+                    Util.kmphToMph(weather.today.windSpeed)
+                )
+                weather_summary.visibility = View.VISIBLE
+                weather_summary.text = weather.today.summary
+            } else {
+                weather_summary.visibility = View.GONE
+                weather_today_temperature.text =
+                    String.format("%d - %d°C", weather.today.minTemp, weather.today.maxTemp)
+            }
+
+
+            weather_tomorrow_icon.setImageResource(weather.tomorrow.icon)
+            if (weather.tomorrow.isPrecip && weather.tomorrow.windSpeed > 15) {
+                weather_tomorrow_temperature.text = String.format(
+                    "%d - %d°C,  %d mph",
+                    weather.tomorrow.minTemp,
+                    weather.tomorrow.maxTemp,
+                    Util.kmphToMph(weather.tomorrow.windSpeed)
                 )
             } else {
-                weather_today_temperature.text =
-                    String.format("%.0f - %.0f°C", weather.hourly.minTemp(), weather.hourly.maxTemp())
+                weather_tomorrow_temperature.text =
+                    String.format("%d - %d°C", weather.tomorrow.minTemp, weather.tomorrow.maxTemp)
             }
-            weather_summary.text = weather.hourly.summary
 
         }, { error ->
             setVisibility(

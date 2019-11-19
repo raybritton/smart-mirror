@@ -81,6 +81,35 @@
         tools:text="Possible light rain starting later this afternoon, continuing until tonight" />
 
     <TextView
+        style="@style/Weather.SectionTitle"
+        android:layout_marginTop="@dimen/double_margin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/section_tomorrow" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        tools:ignore="UseCompoundDrawables">
+
+        <ImageView
+            android:id="@+id/weather_tomorrow_icon"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:contentDescription="@null"
+            tools:src="@drawable/ic_cloud" />
+
+        <TextView
+            android:id="@+id/weather_tomorrow_temperature"
+            style="@style/Weather.Temperature"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="30C" />
+    </LinearLayout>
+
+    <TextView
         android:id="@+id/weather_error"
         style="@style/Weather.Error"
         android:layout_width="wrap_content"

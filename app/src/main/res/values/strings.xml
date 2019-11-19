@@ -10,6 +10,7 @@
 
     <string name="section_now">now</string>
     <string name="section_today">later</string>
+    <string name="section_tomorrow">tomorrow</string>
 
     <string name="precip_now">Currently %s</string>
 

@@ -11,11 +11,15 @@ private const val COL_ID = "id"
 private const val COL_TIME = "time"
 private const val COL_TYPE = "type"
 private const val COL_MESSAGE = "message"
+private const val COL_IMPORTANT = "important"
 
 @Dao
 interface StatusLogDao {
     @Query("SELECT * FROM $EVENT_TABLE_NAME WHERE DATETIME(:time, 'start of day') = DATETIME($COL_TIME, 'start of day')")
     suspend fun getEventsForDay(time: String): List<Event>
+
+    @Query("SELECT * FROM $EVENT_TABLE_NAME WHERE DATETIME(:time, 'start of day') = DATETIME($COL_TIME, 'start of day') AND $COL_IMPORTANT = 1")
+    suspend fun getImportantEventsForDay(time: String): List<Event>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun add(event: Event)

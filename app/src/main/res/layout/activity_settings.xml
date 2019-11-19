@@ -9,13 +9,6 @@
     <Button
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:id="@+id/settings_weather_test"
-        android:text="Test weather"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-    <Button
-        app:layout_constraintStart_toEndOf="@id/settings_weather_test"
-        app:layout_constraintTop_toTopOf="parent"
         android:layout_marginStart="@dimen/double_margin"
         android:id="@+id/settings_log"
         android:text="View logs"

@@ -15,10 +15,6 @@ class SettingsActivity : AppCompatActivity() {
 
         window.decorView.keepScreenOn = true
 
-        settings_weather_test.setOnClickListener {
-            WeatherTestActivity.start(this)
-        }
-
         settings_log.setOnClickListener {
             LogStatusActivity.start(this)
         }

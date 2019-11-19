@@ -14,7 +14,8 @@ data class Event(
     val id: Long?,
     val time: DateTime,
     val type: Type,
-    val message: String
+    val message: String,
+    val important: Boolean
 ) {
     enum class Type(@StringRes val display: Int, @ColorRes val color: Int) {
         APP(R.string.type_app, R.color.type_app),
@@ -23,12 +24,13 @@ data class Event(
     }
 
     companion object {
-        fun create(type: Type, message: String): Event {
+        fun create(type: Type, message: String, important: Boolean): Event {
             return Event(
                 null,
                 DateTime.now(),
                 type,
-                message
+                message,
+                important
             )
         }
     }
