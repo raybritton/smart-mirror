@@ -16,7 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/MirrorTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".ui.settings.WeatherTestActivity"
+        <activity android:name=".ui.settings.AppActivity"
             android:screenOrientation="sensorLandscape"/>
         <activity android:name=".ui.settings.SettingsActivity"
             android:screenOrientation="sensorLandscape"/>

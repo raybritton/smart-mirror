@@ -1,17 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:padding="@dimen/double_padding"
+    android:padding="@dimen/normal_padding"
     android:layout_width="match_parent"
+    android:orientation="vertical"
     android:layout_height="match_parent"
     tools:context="app.raybritton.smartmirror.ui.settings.SettingsActivity">
     <Button
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginStart="@dimen/double_margin"
+        style="?attr/borderlessButtonStyle"
+        android:textColor="#fff"
+        android:layout_margin="@dimen/normal_margin"
         android:id="@+id/settings_log"
-        android:text="View logs"
-        android:layout_width="wrap_content"
+        android:text="Device Logs"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <Button
+        app:layout_constraintStart_toStartOf="parent"
+        style="?attr/borderlessButtonStyle"
+        android:textColor="#fff"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_margin="@dimen/normal_margin"
+        android:id="@+id/settings_apps"
+        android:text="Apps"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <Button
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        style="?attr/borderlessButtonStyle"
+        android:textColor="#fff"
+        android:layout_margin="@dimen/normal_margin"
+        android:id="@+id/settings_crash_logs"
+        android:text="Crash logs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</LinearLayout>

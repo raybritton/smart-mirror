@@ -1,19 +1,22 @@
 package app.raybritton.smartmirror.ui.mirror
 
+import android.animation.ObjectAnimator
+import android.animation.ValueAnimator
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.os.PowerManager
-import android.text.format.DateFormat
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
 import app.raybritton.smartmirror.R
+import app.raybritton.smartmirror.ui.arch.BaseActivity
 import app.raybritton.smartmirror.ui.settings.SettingsActivity
 import kotlinx.android.synthetic.main.activity_mirror.*
+import org.joda.time.format.DateTimeFormat
+import timber.log.Timber
 import java.util.*
 
-class MirrorActivity : AppCompatActivity() {
+class MirrorActivity : BaseActivity<MirrorViewModel>(MirrorViewModel::class.java) {
 
     private val powerManager by lazy { getSystemService(Context.POWER_SERVICE) as PowerManager }
     private val dayTimeWakelock by lazy {
@@ -29,10 +32,6 @@ class MirrorActivity : AppCompatActivity() {
 
     private val handler = Handler {
         when (it.what) {
-            WHAT_UPDATE -> {
-                updateUi()
-                true
-            }
             WHAT_REFRESH -> {
                 refreshPixels()
                 true
@@ -49,11 +48,22 @@ class MirrorActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_mirror)
 
-        handler.sendEmptyMessage(WHAT_UPDATE)
         handler.sendEmptyMessage(WHAT_REFRESH)
 
         mirror_refresh.setOnClickListener {
             SettingsActivity.start(this)
+        }
+
+        viewModel.weatherData.observe { systemFailure ->
+            if (systemFailure) {
+                mirror_system_failure.visibility = View.VISIBLE
+                val animation = ObjectAnimator.ofFloat(mirror_system_failure_icon, "alpha", 1f, 0f)
+                animation.repeatMode = ValueAnimator.REVERSE
+                animation.repeatCount = ValueAnimator.INFINITE
+                animation.duration = 1000L
+                animation.start()
+                Timber.e("System failed at ${DateTimeFormat.shortTime().print(System.currentTimeMillis())}")
+            }
         }
     }
 
@@ -78,7 +88,7 @@ class MirrorActivity : AppCompatActivity() {
     @SuppressLint("WakelockTimeout") //it's supposed to last all day
     private fun checkWakelock() {
         val hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
-        if (hour > 6 || hour < 21) {
+        if (hour >= 6 || hour < 21) {
             if (!dayTimeWakelock.isHeld) {
                 nightTimeWakelock.release()
                 dayTimeWakelock.acquire()
@@ -96,16 +106,6 @@ class MirrorActivity : AppCompatActivity() {
         )
     }
 
-    private fun updateUi() {
-        mirror_datetime.update()
-        mirror_weather.update()
-
-        handler.sendEmptyMessageDelayed(
-            WHAT_UPDATE,
-            UPDATE_MS
-        )
-    }
-
     private fun refreshPixels() {
         mirror_refresh.refresh()
 
@@ -116,10 +116,8 @@ class MirrorActivity : AppCompatActivity() {
     }
 
     companion object {
-        private const val WHAT_UPDATE = 100
         private const val WHAT_REFRESH = 101
         private const val WHAT_WAKELOCK = 102
-        private const val UPDATE_MS = 500L //500ms
         private const val REFRESH_MS = 5 * 60 * 1000 * 60L //5 hours
         private const val WAKELOCK_MS = 10 * 1000 * 60L //10 mins
     }

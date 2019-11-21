@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import app.raybritton.elog.ELog
 import app.raybritton.smartmirror.R
 import kotlinx.android.synthetic.main.activity_settings.*
 
@@ -17,6 +18,14 @@ class SettingsActivity : AppCompatActivity() {
 
         settings_log.setOnClickListener {
             LogStatusActivity.start(this)
+        }
+
+        settings_apps.setOnClickListener {
+            AppActivity.start(this)
+        }
+
+        settings_crash_logs.setOnClickListener {
+            ELog.openLogScreen()
         }
     }
 

@@ -20,4 +20,35 @@
         android:id="@+id/mirror_refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
+    <LinearLayout
+        android:id="@+id/mirror_system_failure"
+        android:clickable="true"
+        android:focusable="true"
+        android:visibility="gone"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:background="@color/mirror_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ImageView
+            android:id="@+id/mirror_system_failure_icon"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_warning"
+            style="@style/SystemFailure.Icon"
+            android:layout_marginBottom="@dimen/normal_margin"
+            android:layout_width="100dp"
+            android:layout_height="100dp"/>
+        <TextView
+            android:text="@string/system_failure_title"
+            style="@style/SystemFailure.Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:text="@string/system_failure_message"
+            android:layout_marginTop="@dimen/half_margin"
+            style="@style/SystemFailure.Message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
 </FrameLayout>

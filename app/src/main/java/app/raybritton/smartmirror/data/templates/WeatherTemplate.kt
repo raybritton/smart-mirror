@@ -2,6 +2,7 @@ package app.raybritton.smartmirror.data.templates
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
+import app.raybritton.smartmirror.BuildConfig
 import app.raybritton.smartmirror.R
 import app.raybritton.smartmirror.data.models.*
 import java.util.*
@@ -10,17 +11,36 @@ import kotlin.math.roundToInt
 data class WeatherTemplate(
     val currently: WeatherDetail,
     val minutely: Minutely,
-    val hourly: Hourly
+    val hourly: Hourly,
+    val daily: Daily
 ) {
     fun toWeather(): Weather {
         return Weather(
             currently.toCurrent(),
             minutely.toNextHour(),
             hourly.today(),
-            hourly.tomorrow()
+            hourly.tomorrow(daily.tomorrowSummary())
         )
     }
 }
+
+data class Daily(
+    val data: List<DailyWeather>
+) {
+    fun tomorrowSummary(): String {
+        val day = Calendar.getInstance().apply { add(Calendar.DAY_OF_YEAR, 1) }.get(Calendar.DAY_OF_YEAR)
+        return data.first {
+            Calendar.getInstance().apply {
+                timeInMillis = it.time * 1000L
+            }.get(Calendar.DAY_OF_YEAR) == day
+        }.summary
+    }
+}
+
+data class DailyWeather(
+    val time: Long,
+    val summary: String
+)
 
 data class Hourly(
     val summary: String,
@@ -37,7 +57,7 @@ data class Hourly(
         return makeDay(summary, todaysData)
     }
 
-    fun tomorrow(): Day {
+    fun tomorrow(summary: String): Day {
         val day =
             Calendar.getInstance().apply { add(Calendar.DAY_OF_YEAR, 1) }.get(Calendar.DAY_OF_YEAR)
         val todaysData = data.filter {
@@ -68,14 +88,16 @@ data class Minutely(
     val data: List<RainDetails>
 ) {
     fun toNextHour(): NextHour {
+        val isPrecip = data.any { it.precipProbability > 0 && it.precipIntensity >= BuildConfig.MIN_VALID_PRECIP }
+        val highestPrecip = data.maxBy { it.precipIntensity }?.precipIntensity ?: 0.0
         return NextHour(
-            summary,
-            data.any { it.precipProbability > 0 && it.precipIntensity > 0 },
-            data.firstOrNull { it.precipIntensity > 0 && it.precipProbability > 0 }
+            isPrecip,
+            data.firstOrNull { it.precipIntensity >= BuildConfig.MIN_VALID_PRECIP && it.precipProbability > 0 }
                 ?.precipType.let {
                 Precip.create(it)
             },
-            data.indexOfFirst { it.precipProbability > 0 && it.precipIntensity > 0 }
+            data.indexOfFirst { it.precipProbability > 0 && it.precipIntensity >= BuildConfig.MIN_VALID_PRECIP },
+            getIcon(if (isPrecip) "clear-day" else "rain", highestPrecip)
         )
     }
 }

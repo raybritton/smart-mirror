@@ -25,4 +25,5 @@
         android:layout_marginBottom="@dimen/normal_margin"
         android:layout_marginStart="@dimen/normal_margin"
         tools:text="13 Nov 2019" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

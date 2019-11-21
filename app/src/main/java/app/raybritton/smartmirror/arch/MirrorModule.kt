@@ -2,12 +2,14 @@ package app.raybritton.smartmirror.arch
 
 import android.app.Application
 import androidx.room.Room
+import app.raybritton.smartmirror.data.WeatherManager
 import app.raybritton.smartmirror.data.api.DarkSkyService
 import app.raybritton.smartmirror.data.database.MirrorDatabase
 import app.raybritton.smartmirror.data.monitors.*
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import timber.log.Timber
 
@@ -48,11 +50,16 @@ object MirrorModule {
         darkSkyRetrofit.create(DarkSkyService::class.java)
     }
 
+    val weatherManager by lazy {
+        WeatherManager()
+    }
+
     private val darkSkyRetrofit by lazy {
         Retrofit.Builder()
             .baseUrl("https://api.darksky.net")
             .client(okhttp)
             .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()
     }
 

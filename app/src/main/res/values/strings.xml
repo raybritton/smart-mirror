@@ -22,4 +22,7 @@
     <string name="type_app">App</string>
     <string name="type_net">Network</string>
     <string name="type_power">Power</string>
+
+    <string name="system_failure_title">System Failure</string>
+    <string name="system_failure_message">Reboot device to continue</string>
 </resources>

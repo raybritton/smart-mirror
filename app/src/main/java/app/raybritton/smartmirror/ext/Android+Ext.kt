@@ -1,4 +1,4 @@
-package app.raybritton.smartmirror.ui
+package app.raybritton.smartmirror.ext
 
 import android.widget.TextView
 import androidx.annotation.ColorRes

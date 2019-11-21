@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.Color
 import android.util.AttributeSet
 import android.view.View
+import app.raybritton.smartmirror.BuildConfig
 
 class PixelRefreshView : View {
     constructor(context: Context?) : super(context)
@@ -11,6 +12,7 @@ class PixelRefreshView : View {
     constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
 
     fun refresh() {
+        if (BuildConfig.DEBUG) return
         slowRefresh {
             slowRefresh {
                 this.setBackgroundColor(Color.TRANSPARENT)

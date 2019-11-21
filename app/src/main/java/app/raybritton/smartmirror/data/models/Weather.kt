@@ -18,10 +18,10 @@ data class Current(
 )
 
 data class NextHour(
-    val summary: String,
     val isPrecip: Boolean,
     val precipType: Precip,
-    val timeToPrecip: Int
+    val timeToPrecip: Int,
+    @DrawableRes val icon: Int
 )
 
 data class Day(

@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import app.raybritton.smartmirror.R
 import app.raybritton.smartmirror.data.models.Event
-import app.raybritton.smartmirror.ui.setTextColorRes
+import app.raybritton.smartmirror.ext.setTextColorRes
 import kotlinx.android.synthetic.main.element_event.view.*
 import java.util.*
 
