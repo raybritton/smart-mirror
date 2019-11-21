@@ -57,11 +57,7 @@ class MirrorActivity : BaseActivity<MirrorViewModel>(MirrorViewModel::class.java
         viewModel.weatherData.observe { systemFailure ->
             if (systemFailure) {
                 mirror_system_failure.visibility = View.VISIBLE
-                val animation = ObjectAnimator.ofFloat(mirror_system_failure_icon, "alpha", 1f, 0f)
-                animation.repeatMode = ValueAnimator.REVERSE
-                animation.repeatCount = ValueAnimator.INFINITE
-                animation.duration = 1000L
-                animation.start()
+
                 Timber.e("System failed at ${DateTimeFormat.shortTime().print(System.currentTimeMillis())}")
             }
         }

@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.DrawableRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import app.raybritton.smartmirror.R
@@ -24,15 +25,20 @@ class AppActivity : AppCompatActivity() {
         setContentView(R.layout.activity_app)
 
         val appInfos = packageManager.getInstalledApplications(0)
+            .filterNot { it.packageName == this.packageName }
+            .filterNot { it.packageName.contains("inputmethod") }
+            .filterNot { it.name == null }
+            .filter { it.flags and ApplicationInfo.FLAG_UPDATED_SYSTEM_APP != ApplicationInfo.FLAG_UPDATED_SYSTEM_APP }
             .map {
-                it.icon
-                val name = it.name ?: "No name"
+                val name = it.loadLabel(packageManager).toString()
                 val packageName = it.packageName
                 AppInfo(name, packageName)
             }
 
-        app_list.layoutManager = LinearLayoutManager(this)
-        app_list.adapter = Adapter(packageManager, layoutInflater, appInfos)
+        app_list.layoutManager = GridLayoutManager(this, 2)
+        app_list.adapter = Adapter(packageManager, layoutInflater, appInfos) { packageName ->
+            startActivity(packageManager.getLaunchIntentForPackage(packageName))
+        }
 
         app_progress.visibility = View.GONE
     }
@@ -40,7 +46,8 @@ class AppActivity : AppCompatActivity() {
     private data class Adapter(
         private val packageManager: PackageManager,
         private val layoutInflater: LayoutInflater,
-        private val data: List<AppInfo>
+        private val data: List<AppInfo>,
+        private val onClick: (String) -> Unit
     ) :
         RecyclerView.Adapter<Adapter.AppViewHolder>() {
 
@@ -57,7 +64,13 @@ class AppActivity : AppCompatActivity() {
             holder.itemView.app_package.text = data[position].packageName
         }
 
-        class AppViewHolder(view: View) : RecyclerView.ViewHolder(view)
+        inner class AppViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+            init {
+                view.setOnClickListener {
+                    onClick(data[adapterPosition].packageName)
+                }
+            }
+        }
     }
 
     private data class AppInfo(

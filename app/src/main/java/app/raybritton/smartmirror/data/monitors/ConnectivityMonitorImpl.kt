@@ -21,21 +21,15 @@ class ConnectivityMonitorImpl(private val ctx: Application,
 
     private val callback = object: ConnectivityManager.NetworkCallback() {
         override fun onUnavailable() {
-            GlobalScope.launch {
-                logger.addNoNetworkEvent()
-            }
+            logger.addNoNetworkEvent()
         }
 
         override fun onAvailable(network: Network) {
-            GlobalScope.launch {
-                logger.addConnectivityEvent(true)
-            }
+            logger.addConnectivityEvent(true)
         }
 
         override fun onLost(network: Network) {
-            GlobalScope.launch {
-                logger.addConnectivityEvent(false)
-            }
+            logger.addConnectivityEvent(false)
         }
     }
 }

@@ -29,6 +29,7 @@ class LogAdapter(context: Context) : RecyclerView.Adapter<LogAdapter.EventViewHo
     override fun getItemCount() = data.size
 
     override fun onBindViewHolder(holder: EventViewHolder, position: Int) {
+        holder.itemView.event_important.visibility = if (data[position].important) View.VISIBLE else View.GONE
         holder.itemView.event_message.text = data[position].message
         holder.itemView.event_type.setText(data[position].type.display)
         holder.itemView.event_type.setTextColorRes(data[position].type.color)

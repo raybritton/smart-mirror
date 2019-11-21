@@ -20,6 +20,16 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="AppList" />
+    <style name="AppList.Name" >
+        <item name="android:textColor">#fff</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+    <style name="AppList.Package" >
+        <item name="android:textColor">#aaa</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
     <style name="SystemFailure" />
     <style name="SystemFailure.Icon" >
         <item name="android:tint">@color/mirror_text_error</item>

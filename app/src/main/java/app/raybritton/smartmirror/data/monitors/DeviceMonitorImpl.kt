@@ -6,9 +6,7 @@ import kotlin.math.log
 
 class DeviceMonitorImpl(private val logger: DeviceLogger) : DeviceMonitor {
     override fun monitor() {
-        GlobalScope.launch {
-            logger.addStartEvent()
-        }.start()
+        logger.addStartEvent()
     }
 
 }

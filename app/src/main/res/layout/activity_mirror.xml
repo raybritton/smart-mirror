@@ -16,6 +16,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
+    <fragment
+        android:id="@+id/mirror_alert"
+        android:layout_gravity="end|bottom"
+        class="app.raybritton.smartmirror.ui.mirror.AlertView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
     <app.raybritton.smartmirror.ui.mirror.WeatherView
         android:id="@+id/mirror_weather"
         android:layout_width="match_parent"

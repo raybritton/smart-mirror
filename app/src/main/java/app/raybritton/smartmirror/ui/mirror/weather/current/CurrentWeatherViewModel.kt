@@ -11,8 +11,7 @@ import io.reactivex.rxkotlin.addTo
 import timber.log.Timber
 
 class CurrentWeatherViewModel(manager: WeatherManager = MirrorModule.weatherManager) : BaseViewModel() {
-    val weatherData = MutableLiveData<WeatherStatus>(
-        WeatherStatus.Loading)
+    val weatherData = MutableLiveData<WeatherStatus>(WeatherStatus.Loading)
 
     init {
         manager.watchForecast()

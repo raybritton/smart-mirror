@@ -34,16 +34,12 @@ object MirrorModule {
         DeviceMonitorImpl(monitorLogger)
     }
 
-    private val powerMonitor: PowerMonitor by lazy {
-        PowerMonitorImpl(application, monitorLogger)
-    }
-
     val logReader: LogReader by lazy {
         monitorLogger
     }
 
     val monitorManager: MonitorManager by lazy {
-        MonitorManager(connMonitor, deviceMonitor, powerMonitor)
+        MonitorManager(connMonitor, deviceMonitor)
     }
 
     val darkSkyService: DarkSkyService by lazy {

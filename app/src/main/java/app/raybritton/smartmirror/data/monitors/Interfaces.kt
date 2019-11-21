@@ -1,10 +1,13 @@
 package app.raybritton.smartmirror.data.monitors
 
 import app.raybritton.smartmirror.data.models.Event
+import io.reactivex.Flowable
+import io.reactivex.Single
 import org.joda.time.DateTime
 
 interface LogReader {
-    suspend fun getLog(day: DateTime): List<Event>
+    fun getLog(day: DateTime): Single<List<Event>>
+    fun hasAnyImportantLogs(): Flowable<Boolean>
 }
 
 interface ConnectivityMonitor {
@@ -12,8 +15,8 @@ interface ConnectivityMonitor {
 }
 
 interface ConnectivityLogger {
-    suspend fun addNoNetworkEvent()
-    suspend fun addConnectivityEvent(connected: Boolean)
+    fun addNoNetworkEvent()
+    fun addConnectivityEvent(connected: Boolean)
 }
 
 interface DeviceMonitor {
@@ -21,7 +24,7 @@ interface DeviceMonitor {
 }
 
 interface DeviceLogger {
-    suspend fun addStartEvent()
+    fun addStartEvent()
 }
 
 interface PowerMonitor {

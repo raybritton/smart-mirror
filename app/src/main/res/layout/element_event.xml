@@ -7,7 +7,17 @@
     android:layout_marginTop="@dimen/normal_margin"
     android:padding="@dimen/normal_padding">
 
+    <View
+        android:id="@+id/event_important"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:background="#d00"
+        android:layout_width="4dp"
+        android:layout_height="0dp"/>
+
     <TextView
+        android:layout_marginStart="@dimen/half_padding"
         android:id="@+id/event_time"
         style="@style/Log.Event.Time"
         android:layout_width="wrap_content"
@@ -17,6 +27,7 @@
         tools:text="03:40" />
 
     <TextView
+        android:layout_marginStart="@dimen/half_padding"
         android:id="@+id/event_message"
         style="@style/Log.Event.Message"
         android:layout_width="match_parent"
