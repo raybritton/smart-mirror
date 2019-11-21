@@ -97,7 +97,7 @@ data class Minutely(
                 Precip.create(it)
             },
             data.indexOfFirst { it.precipProbability > 0 && it.precipIntensity >= BuildConfig.MIN_VALID_PRECIP },
-            getIcon(if (isPrecip) "clear-day" else "rain", highestPrecip)
+            getIcon(if (isPrecip) "rain" else "clear-day", highestPrecip)
         )
     }
 }
