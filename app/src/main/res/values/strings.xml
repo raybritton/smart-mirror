@@ -25,4 +25,7 @@
 
     <string name="system_failure_title">System Failure</string>
     <string name="system_failure_message">Reboot device to continue</string>
+
+    <string name="battery_discharging">Discharging (%d%%)</string>
+    <string name="battery_critical">Critically low (%d%%)</string>
 </resources>

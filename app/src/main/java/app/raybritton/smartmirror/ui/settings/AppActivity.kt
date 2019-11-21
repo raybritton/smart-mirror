@@ -26,7 +26,7 @@ class AppActivity : AppCompatActivity() {
         val appInfos = packageManager.getInstalledApplications(0)
             .map {
                 it.icon
-                val name = it.name
+                val name = it.name ?: "No name"
                 val packageName = it.packageName
                 AppInfo(name, packageName)
             }

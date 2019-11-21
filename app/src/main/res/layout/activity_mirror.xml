@@ -6,6 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".ui.mirror.MirrorActivity">
 
+    <app.raybritton.smartmirror.ui.mirror.BatteryView
+        android:id="@+id/mirror_battery"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
     <app.raybritton.smartmirror.ui.mirror.DateTimeView
         android:id="@+id/mirror_datetime"
         android:layout_width="match_parent"
