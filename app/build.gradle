@@ -12,13 +12,14 @@ android {
         applicationId "app.raybritton.magicmirror"
         minSdkVersion 23
         targetSdkVersion 29
-        versionCode 2
-        versionName "2.0"
+        versionCode 3
+        versionName "2.1"
 
         buildConfigField "String", "DARKSKY_KEY", "\"${properties.getProperty('darksky')}\""
         buildConfigField "String", "LATLNG", "\"${properties.getProperty('latlng')}\""
         buildConfigField "String", "WEATHER_DIFF_URL", "\"${properties.getProperty('weather_diff_url')}\""
         buildConfigField "String", "WEATHER_DIFF_KEY", "\"${properties.getProperty('weather_diff_key')}\""
+        buildConfigField "double", "DISCHARGE_ALERT_THRESHOLD", "0.9"
         buildConfigField "double", "MIN_VALID_PRECIP", "0.1" //the lowest value that counts as rain
         buildConfigField "int", "MIN_VALID_WIND_SPEED", "10" //the lowest wind speed (kmph) before wind speed appears
     }

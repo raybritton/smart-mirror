@@ -10,6 +10,7 @@ import android.os.BatteryManager
 import android.util.AttributeSet
 import android.view.View
 import android.widget.FrameLayout
+import app.raybritton.smartmirror.BuildConfig
 import app.raybritton.smartmirror.R
 import kotlinx.android.synthetic.main.view_battery.view.*
 
@@ -58,9 +59,13 @@ class BatteryView : FrameLayout {
                 battery_text.text = context.getString(R.string.battery_critical, charge)
                 animated = true
                 animationUpdate()
-            } else {
+            } else if (chargeLevel <= BuildConfig.DISCHARGE_ALERT_THRESHOLD){
                 battery_text.text = context.getString(R.string.battery_discharging, charge)
                 animated = false
+            } else {
+                animated = false
+                battery_text.visibility = View.GONE
+                battery_icon.visibility = View.GONE
             }
         }
     }
