@@ -7,7 +7,6 @@ import org.joda.time.DateTime
 
 interface LogReader {
     fun getLog(day: DateTime): Single<List<Event>>
-    fun hasAnyImportantLogs(): Flowable<Boolean>
 }
 
 interface ConnectivityMonitor {

@@ -25,5 +25,5 @@ interface StatusLogDao {
     fun getImportantEventsForDay(time: String): Flowable<List<Event>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun add(event: Event): Completable
+    fun add(event: Event): Single<Long>
 }

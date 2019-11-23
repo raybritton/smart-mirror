@@ -7,13 +7,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import app.raybritton.smartmirror.R
+import app.raybritton.smartmirror.arch.PrefModule
 import app.raybritton.smartmirror.data.models.Event
 import app.raybritton.smartmirror.ext.setTextColorRes
 import kotlinx.android.synthetic.main.element_event.view.*
 import java.util.*
 
-class LogAdapter(context: Context) : RecyclerView.Adapter<LogAdapter.EventViewHolder>() {
+class LogAdapter(context: Context,
+                 private val onUnreadEventSeen: () -> Unit) : RecyclerView.Adapter<LogAdapter.EventViewHolder>() {
     private val timeFormatter = DateFormat.getTimeFormat(context)
+
+    var latestUnreadEventId: Long = PrefModule.NO_EVENT
 
     var data: List<Event> = emptyList()
         set(value) {
@@ -34,7 +38,12 @@ class LogAdapter(context: Context) : RecyclerView.Adapter<LogAdapter.EventViewHo
         holder.itemView.event_type.setText(data[position].type.display)
         holder.itemView.event_type.setTextColorRes(data[position].type.color)
         holder.itemView.event_time.text = timeFormatter.format(Date(data[position].time.millis))
+
+        if (data[position].id == latestUnreadEventId) {
+            latestUnreadEventId = PrefModule.NO_EVENT
+            onUnreadEventSeen()
+        }
     }
 
-    class EventViewHolder(view: View) : RecyclerView.ViewHolder(view)
+    class EventViewHolder(view: View) : RecyclerView.ViewHolder(view) {}
 }

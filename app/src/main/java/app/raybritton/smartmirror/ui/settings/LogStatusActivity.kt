@@ -22,11 +22,17 @@ class LogStatusActivity : BaseActivity<LogStatusViewModel>(LogStatusViewModel::c
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_log_status)
 
-        val adapter = LogAdapter(this)
+        val adapter = LogAdapter(this) {
+            viewModel.latestEventRead()
+        }
 
         log_list.layoutManager = LinearLayoutManager(this)
         log_list.itemAnimator = DefaultItemAnimator()
         log_list.adapter = adapter
+
+        viewModel.unreadEventId.observe { id ->
+            adapter.latestUnreadEventId = id
+        }
 
         viewModel.logs.observe { result ->
             log_date.text = formatDate(result.dateTime)
