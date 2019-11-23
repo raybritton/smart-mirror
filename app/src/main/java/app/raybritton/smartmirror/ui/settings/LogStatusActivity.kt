@@ -68,12 +68,16 @@ class LogStatusActivity : BaseActivity<LogStatusViewModel>(LogStatusViewModel::c
     }
 
     private fun formatDate(dateTime: DateTime): String {
-        if (dateTime.isToday()) {
-            return getString(R.string.date_today)
-        } else if (dateTime.isYesterday()) {
-            return getString(R.string.date_yesterday)
-        } else {
-            return formatter.print(dateTime)
+        return when {
+            dateTime.isToday() -> {
+                getString(R.string.date_today)
+            }
+            dateTime.isYesterday() -> {
+                getString(R.string.date_yesterday)
+            }
+            else -> {
+                formatter.print(dateTime)
+            }
         }
     }
 

@@ -6,8 +6,6 @@ import android.net.ConnectivityManager
 import android.net.Network
 import android.net.NetworkCapabilities
 import android.net.NetworkRequest
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
 class ConnectivityMonitorImpl(private val ctx: Application,
                               private val logger: ConnectivityLogger) : ConnectivityMonitor {

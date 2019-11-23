@@ -4,11 +4,8 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.text.format.DateFormat
 import android.util.AttributeSet
-import android.view.View
 import android.widget.FrameLayout
-import androidx.core.view.postDelayed
 import app.raybritton.smartmirror.R
-import kotlinx.android.synthetic.main.activity_mirror.*
 import kotlinx.android.synthetic.main.view_datetime.view.*
 import java.text.SimpleDateFormat
 import java.util.*

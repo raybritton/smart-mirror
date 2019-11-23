@@ -3,11 +3,10 @@ package app.raybritton.smartmirror.data.monitors
 import android.annotation.SuppressLint
 import app.raybritton.elog.ELog
 import app.raybritton.smartmirror.arch.PrefModule
-import app.raybritton.smartmirror.data.models.Event
 import app.raybritton.smartmirror.data.database.StatusLogDao
+import app.raybritton.smartmirror.data.models.Event
 import app.raybritton.smartmirror.ext.applyIoSchedulers
 import com.f2prateek.rx.preferences2.Preference
-import io.reactivex.Flowable
 import io.reactivex.Single
 import org.joda.time.DateTime
 import timber.log.Timber

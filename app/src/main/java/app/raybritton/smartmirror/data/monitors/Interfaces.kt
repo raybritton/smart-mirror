@@ -1,7 +1,6 @@
 package app.raybritton.smartmirror.data.monitors
 
 import app.raybritton.smartmirror.data.models.Event
-import io.reactivex.Flowable
 import io.reactivex.Single
 import org.joda.time.DateTime
 
@@ -24,11 +23,4 @@ interface DeviceMonitor {
 
 interface DeviceLogger {
     fun addStartEvent()
-}
-
-interface PowerMonitor {
-    fun monitor()
-}
-
-interface PowerLogger {
 }
