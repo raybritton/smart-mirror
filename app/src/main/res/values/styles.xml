@@ -20,6 +20,11 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="Update">
+        <item name="android:textColor">@color/mirror_text_info</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
     <style name="AppList" />
     <style name="AppList.Name" >
         <item name="android:textColor">#fff</item>

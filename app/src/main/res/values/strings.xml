@@ -31,4 +31,6 @@
 
     <string name="date_today">Today</string>
     <string name="date_yesterday">Yesterday</string>
+
+    <string name="update_available">Update available</string>
 </resources>

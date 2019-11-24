@@ -24,3 +24,7 @@ interface DeviceMonitor {
 interface DeviceLogger {
     fun addStartEvent()
 }
+
+interface UpdateMonitor {
+    fun monitor()
+}

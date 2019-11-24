@@ -6,9 +6,9 @@ import app.raybritton.elog.ELog
 import app.raybritton.elog.ELogConfig
 import app.raybritton.elog.ELogIdGen
 import app.raybritton.smartmirror.arch.MirrorModule
+import app.raybritton.smartmirror.arch.PrefModule
 import net.danlew.android.joda.JodaTimeAndroid
 import timber.log.Timber
-import java.util.concurrent.TimeUnit
 
 class MirrorApp : Application() {
     override fun onCreate() {
@@ -33,5 +33,7 @@ class MirrorApp : Application() {
         JodaTimeAndroid.init(this)
 
         MirrorModule.monitorManager.start()
+
+        PrefModule.updateAvailable.set(false)
     }
 }

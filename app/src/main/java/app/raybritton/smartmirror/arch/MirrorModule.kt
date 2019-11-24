@@ -23,6 +23,8 @@ object MirrorModule {
 
     private val monitorLogger by lazy { MonitorLogger(database.logDao()) }
 
+    private val updateMonitor: UpdateMonitor by lazy { UpdateMonitorImpl(application, PrefModule.updateAvailable) }
+
     private val connMonitor: ConnectivityMonitor by lazy {
         ConnectivityMonitorImpl(
             application,
@@ -39,7 +41,7 @@ object MirrorModule {
     }
 
     val monitorManager: MonitorManager by lazy {
-        MonitorManager(connMonitor, deviceMonitor)
+        MonitorManager(connMonitor, deviceMonitor, updateMonitor)
     }
 
     val darkSkyService: DarkSkyService by lazy {

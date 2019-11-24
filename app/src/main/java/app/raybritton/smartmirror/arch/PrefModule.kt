@@ -17,4 +17,8 @@ object PrefModule {
     val latestUnreadImportantEventId by lazy {
         rxPrefs.getLong("unread_important_event_id.long", NO_EVENT)
     }
+
+    val updateAvailable by lazy {
+        rxPrefs.getBoolean("has_update_available.bool", false)
+    }
 }

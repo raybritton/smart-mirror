@@ -9,7 +9,7 @@ import app.raybritton.smartmirror.ext.createPulseAnimation
 import app.raybritton.smartmirror.ui.arch.BaseFragment
 import kotlinx.android.synthetic.main.fragment_alert.*
 
-class AlertView : BaseFragment<AlertViewModel>(AlertViewModel::class.java) {
+class AlertFragment : BaseFragment<AlertViewModel>(AlertViewModel::class.java) {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_alert, container, false)

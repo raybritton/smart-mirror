@@ -12,8 +12,10 @@ import org.joda.time.DateTime
 import timber.log.Timber
 
 @SuppressLint("CheckResult")
-class MonitorLogger(private val logDao: StatusLogDao,
-                    private val unreadImportantEventId: Preference<Long> = PrefModule.latestUnreadImportantEventId) : ConnectivityLogger, LogReader, DeviceLogger, PowerLogger {
+class MonitorLogger(
+    private val logDao: StatusLogDao,
+    private val unreadImportantEventId: Preference<Long> = PrefModule.latestUnreadImportantEventId
+) : ConnectivityLogger, LogReader, DeviceLogger {
     private val errorHandler: (Throwable) -> Unit = { ex ->
         Timber.e(ex, "Network event")
         ELog.submitCurrentLogSilently("Network event", false)
