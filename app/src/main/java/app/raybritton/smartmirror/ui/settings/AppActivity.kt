@@ -24,19 +24,8 @@ class AppActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_app)
 
-        val appInfos = packageManager.getInstalledApplications(0)
-            .filterNot { it.packageName == this.packageName }
-            .filterNot { it.packageName.contains("inputmethod") }
-            .filterNot { it.name == null }
-            .filter { it.flags and ApplicationInfo.FLAG_UPDATED_SYSTEM_APP != ApplicationInfo.FLAG_UPDATED_SYSTEM_APP }
-            .map {
-                val name = it.loadLabel(packageManager).toString()
-                val packageName = it.packageName
-                AppInfo(name, packageName)
-            }
-
         app_list.layoutManager = GridLayoutManager(this, 2)
-        app_list.adapter = Adapter(packageManager, layoutInflater, appInfos) { packageName ->
+        app_list.adapter = Adapter(packageManager, layoutInflater, PACKAGES) { packageName ->
             startActivity(packageManager.getLaunchIntentForPackage(packageName))
         }
 
@@ -79,6 +68,13 @@ class AppActivity : AppCompatActivity() {
     )
 
     companion object {
+        private val PACKAGES = listOf(
+            AppInfo("Play Store", "com.android.vending"),
+            AppInfo("Chrome", "com.android.chrome"),
+            AppInfo("Pixel Launcher", "com.google.android.apps.nexuslauncher"),
+            AppInfo("Settings", "com.android.settings")
+        )
+
         fun start(activity: Activity) {
             activity.startActivity(Intent(activity, AppActivity::class.java))
         }
