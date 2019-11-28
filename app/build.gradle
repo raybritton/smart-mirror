@@ -22,6 +22,8 @@ android {
         buildConfigField "double", "DISCHARGE_ALERT_THRESHOLD", "0.9"
         buildConfigField "double", "MIN_VALID_PRECIP", "0.1" //the lowest value that counts as rain
         buildConfigField "int", "MIN_VALID_WIND_SPEED", "10" //the lowest wind speed (kmph) before wind speed appears
+        buildConfigField "int", "CORE_HOURS_START", "6" //first hour that matters for weather
+        buildConfigField "int", "CORE_HOURS_END", "21" //last hour that matters for weather
     }
     signingConfigs {
         release {

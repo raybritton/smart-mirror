@@ -5,6 +5,7 @@ import androidx.annotation.StringRes
 import app.raybritton.smartmirror.BuildConfig
 import app.raybritton.smartmirror.R
 import app.raybritton.smartmirror.data.models.*
+import org.joda.time.DateTime
 import java.util.*
 import kotlin.math.roundToInt
 
@@ -69,8 +70,12 @@ data class Hourly(
     }
 
     private fun makeDay(summary: String, weatherData: List<WeatherDetail>): Day {
-        val worstWeather = weatherData.maxBy { getPriority(it.icon) }!!
-        val highestPrecip = weatherData.maxBy { it.precipIntensity }?.precipIntensity ?: 0.0
+        val data = weatherData.filter {
+            val hour = DateTime(it.time * 1000L).hourOfDay
+            hour >= BuildConfig.CORE_HOURS_START && hour <= BuildConfig.CORE_HOURS_END
+        }
+        val worstWeather = data.maxBy { getPriority(it.icon) }!!
+        val highestPrecip = data.maxBy { it.precipIntensity }?.precipIntensity ?: 0.0
         return Day(
             summary,
             weatherData.minBy { it.temperature }!!.temperature.toInt(),

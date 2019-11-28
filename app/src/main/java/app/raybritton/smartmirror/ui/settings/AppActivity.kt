@@ -25,7 +25,15 @@ class AppActivity : AppCompatActivity() {
         setContentView(R.layout.activity_app)
 
         app_list.layoutManager = GridLayoutManager(this, 2)
-        app_list.adapter = Adapter(packageManager, layoutInflater, PACKAGES) { packageName ->
+        val apps = PACKAGES.filter {
+            try {
+                packageManager.getPackageInfo(it.packageName, 0)
+                true
+            } catch (ex: Exception) {
+                false
+            }
+        }
+        app_list.adapter = Adapter(packageManager, layoutInflater, apps) { packageName ->
             startActivity(packageManager.getLaunchIntentForPackage(packageName))
         }
 
@@ -72,6 +80,7 @@ class AppActivity : AppCompatActivity() {
             AppInfo("Play Store", "com.android.vending"),
             AppInfo("Chrome", "com.android.chrome"),
             AppInfo("Pixel Launcher", "com.google.android.apps.nexuslauncher"),
+            AppInfo("Google Now Launcher", "com.google.android.launcher"),
             AppInfo("Settings", "com.android.settings")
         )
 
