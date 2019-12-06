@@ -12,13 +12,24 @@ android {
         applicationId "app.raybritton.magicmirror"
         minSdkVersion 23
         targetSdkVersion 29
-        versionCode 6
-        versionName "2.4"
+        versionCode 8
+        versionName "2.6"
 
         buildConfigField "String", "DARKSKY_KEY", "\"${properties.getProperty('darksky')}\""
         buildConfigField "String", "LATLNG", "\"${properties.getProperty('latlng')}\""
+
         buildConfigField "String", "WEATHER_DIFF_URL", "\"${properties.getProperty('weather_diff_url')}\""
         buildConfigField "String", "WEATHER_DIFF_KEY", "\"${properties.getProperty('weather_diff_key')}\""
+
+        buildConfigField "String", "IP_URL", "\"${properties.getProperty('ip_url')}\""
+
+        buildConfigField "String", "FIREWALL_URL", "\"${properties.getProperty('firewall_url')}\""
+        buildConfigField "String", "FIREWALL_TOKEN", "\"${properties.getProperty('firewall_token')}\""
+        buildConfigField "String", "FIREWALL_ID", "\"${properties.getProperty('firewall_id')}\""
+        buildConfigField "String", "FIREWALL_NAME", "\"${properties.getProperty('firewall_name')}\""
+        buildConfigField "String", "FIREWALL_DROPLET", "\"${properties.getProperty('firewall_droplet')}\""
+        buildConfigField "String[]", "FIREWALL_FIXED_IPS", "{${properties.getProperty('firewall_fixed_ips')}}"
+
         buildConfigField "double", "DISCHARGE_ALERT_THRESHOLD", "0.9"
         buildConfigField "double", "MIN_VALID_PRECIP", "0.1" //the lowest value that counts as rain
         buildConfigField "int", "MIN_VALID_WIND_SPEED", "10" //the lowest wind speed (kmph) before wind speed appears

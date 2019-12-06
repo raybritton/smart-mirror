@@ -2,8 +2,11 @@ package app.raybritton.smartmirror.arch
 
 import android.app.Application
 import androidx.room.Room
+import app.raybritton.smartmirror.BuildConfig
 import app.raybritton.smartmirror.data.WeatherManager
 import app.raybritton.smartmirror.data.api.DarkSkyService
+import app.raybritton.smartmirror.data.api.FirewallService
+import app.raybritton.smartmirror.data.api.IpService
 import app.raybritton.smartmirror.data.database.MirrorDatabase
 import app.raybritton.smartmirror.data.monitors.*
 import okhttp3.OkHttpClient
@@ -41,7 +44,7 @@ object MirrorModule {
     }
 
     val monitorManager: MonitorManager by lazy {
-        MonitorManager(connMonitor, deviceMonitor, updateMonitor)
+        MonitorManager(connMonitor, deviceMonitor, updateMonitor, ipAddressMonitor)
     }
 
     val darkSkyService: DarkSkyService by lazy {
@@ -50,6 +53,36 @@ object MirrorModule {
 
     val weatherManager by lazy {
         WeatherManager()
+    }
+
+    private val firewallService by lazy {
+        firewallRetrofit.create(FirewallService::class.java)
+    }
+
+    private val ipService by lazy {
+        ipRetrofit.create(IpService::class.java)
+    }
+
+    val ipAddressMonitor by lazy {
+        IpAddressMonitor(firewallService, ipService)
+    }
+
+    private val ipRetrofit by lazy {
+        Retrofit.Builder()
+            .baseUrl(BuildConfig.IP_URL)
+            .client(okhttp)
+            .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .build()
+    }
+
+    private val firewallRetrofit by lazy {
+        Retrofit.Builder()
+            .baseUrl(BuildConfig.FIREWALL_URL)
+            .client(okhttp)
+            .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .build()
     }
 
     private val darkSkyRetrofit by lazy {

@@ -1,7 +1,5 @@
 package app.raybritton.smartmirror.ui.mirror
 
-import android.animation.ObjectAnimator
-import android.animation.ValueAnimator
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
@@ -9,6 +7,7 @@ import android.os.Handler
 import android.os.PowerManager
 import android.view.View
 import app.raybritton.smartmirror.R
+import app.raybritton.smartmirror.ext.createPulseAnimation
 import app.raybritton.smartmirror.ui.arch.BaseActivity
 import app.raybritton.smartmirror.ui.settings.SettingsActivity
 import kotlinx.android.synthetic.main.activity_mirror.*
@@ -54,9 +53,10 @@ class MirrorActivity : BaseActivity<MirrorViewModel>(MirrorViewModel::class.java
             SettingsActivity.start(this)
         }
 
-        viewModel.weatherData.observe { systemFailure ->
+        viewModel.hasFailed.observe { systemFailure ->
             if (systemFailure) {
                 mirror_system_failure.visibility = View.VISIBLE
+                mirror_system_failure_icon.createPulseAnimation().start()
 
                 Timber.e("System failed at ${DateTimeFormat.shortTime().print(System.currentTimeMillis())}")
             }

@@ -39,6 +39,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
+<!--    <fragment-->
+<!--        android:id="@+id/mirror_scenery"-->
+<!--        class="app.raybritton.smartmirror.ui.mirror.SceneryFragment"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"/>-->
+
     <app.raybritton.smartmirror.ui.mirror.PixelRefreshView
         android:id="@+id/mirror_refresh"
         android:layout_width="match_parent"
