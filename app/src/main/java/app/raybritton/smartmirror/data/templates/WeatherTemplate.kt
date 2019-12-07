@@ -70,9 +70,14 @@ data class Hourly(
     }
 
     private fun makeDay(summary: String, weatherData: List<WeatherDetail>): Day {
-        val data = weatherData.filter {
-            val hour = DateTime(it.time * 1000L).hourOfDay
-            hour >= BuildConfig.CORE_HOURS_START && hour <= BuildConfig.CORE_HOURS_END
+        val nowHour = DateTime().hourOfDay
+        val data = if (nowHour < BuildConfig.CORE_HOURS_START || nowHour > BuildConfig.CORE_HOURS_END) {
+            weatherData
+        } else {
+            weatherData.filter {
+                val hour = DateTime(it.time * 1000L).hourOfDay
+                hour >= BuildConfig.CORE_HOURS_START && hour <= BuildConfig.CORE_HOURS_END
+            }
         }
         val worstWeather = data.maxBy { getPriority(it.icon) }!!
         val highestPrecip = data.maxBy { it.precipIntensity }?.precipIntensity ?: 0.0
