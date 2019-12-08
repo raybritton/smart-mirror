@@ -85,7 +85,7 @@ data class Hourly(
             summary,
             weatherData.minBy { it.temperature }!!.temperature.toInt(),
             weatherData.maxBy { it.temperature }!!.temperature.toInt(),
-            weatherData.map { it.windSpeed }.max()!!.toInt(),
+            weatherData.map { it.windGust }.max()!!.toInt(),
             weatherData.any { it.precipIntensity > 0 },
             Precip.create(worstWeather.icon),
             getIcon(worstWeather.icon, highestPrecip)
@@ -126,12 +126,12 @@ data class WeatherDetail(
     val precipIntensity: Double,
     val precipType: String?,
     val temperature: Double,
-    val windSpeed: Double
+    val windGust: Double
 ) {
     fun toCurrent(): Current {
         return Current(
             temperature.roundToInt(),
-            windSpeed.roundToInt(),
+            windGust.roundToInt(),
             getIcon(icon, precipIntensity)
         )
     }
