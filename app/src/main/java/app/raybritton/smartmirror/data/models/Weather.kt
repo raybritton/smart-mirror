@@ -6,7 +6,7 @@ import app.raybritton.smartmirror.R
 
 data class Weather(
     val now: Current,
-    val soon: NextHour,
+    val soon: NextHour?,
     val today: Day,
     val tomorrow: Day
 )
@@ -15,7 +15,12 @@ data class Current(
     val temperature: Int,
     val windSpeed: Int,
     @DrawableRes val icon: Int
-)
+) {
+    fun isPrecip(): Boolean {
+        val precipWeathers = arrayOf(R.drawable.ic_rain, R.drawable.ic_light_rain, R.drawable.ic_heavy_rain, R.drawable.ic_hail, R.drawable.ic_snow, R.drawable.ic_thunder)
+        return precipWeathers.contains(icon)
+    }
+}
 
 data class NextHour(
     val isPrecip: Boolean,

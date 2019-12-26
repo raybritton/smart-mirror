@@ -11,14 +11,14 @@ import kotlin.math.roundToInt
 
 data class WeatherTemplate(
     val currently: WeatherDetail,
-    val minutely: Minutely,
+    val minutely: Minutely?,
     val hourly: Hourly,
     val daily: Daily
 ) {
     fun toWeather(): Weather {
         return Weather(
             currently.toCurrent(),
-            minutely.toNextHour(),
+            minutely?.toNextHour(),
             hourly.today(),
             hourly.tomorrow(daily.tomorrowSummary())
         )

@@ -33,4 +33,7 @@
     <string name="date_yesterday">Yesterday</string>
 
     <string name="update_available">Update available</string>
+
+    <string name="current_summary_no_data_precip">No data available for next hour, currently has precipitation</string>
+    <string name="current_summary_no_data">No data available for next hour</string>
 </resources>

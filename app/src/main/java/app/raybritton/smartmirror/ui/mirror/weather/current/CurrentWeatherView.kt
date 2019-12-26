@@ -37,7 +37,11 @@ class CurrentWeatherView : BaseFragment<CurrentWeatherViewModel>(CurrentWeatherV
                 is WeatherStatus.Success -> {
                     show(weather_icon, weather_temperature)
                     hide(weather_loading, weather_error)
-                    setupUi(weatherStatus.weather.now, weatherStatus.weather.soon)
+                    if (weatherStatus.weather.soon == null) {
+                        setupUi(weatherStatus.weather.now)
+                    } else {
+                        setupUi(weatherStatus.weather.now, weatherStatus.weather.soon)
+                    }
                 }
                 is WeatherStatus.Error -> {
                     hide(
@@ -53,12 +57,30 @@ class CurrentWeatherView : BaseFragment<CurrentWeatherViewModel>(CurrentWeatherV
         }
     }
 
+    private fun setupUi(now: Current) {
+        weather_temperature.text = formatTemperature(now)
+        show(weather_summary)
+        if (now.isPrecip()) {
+            weather_summary.text = getString(R.string.current_summary_no_data_precip)
+        } else {
+            weather_summary.text = getString(R.string.current_summary_no_data)
+        }
+        weather_icon.setImageResource(now.icon)
+    }
+
+    private fun formatTemperature(current: Current): String {
+        return if (current.isPrecip() && current.windSpeed >= BuildConfig.MIN_VALID_WIND_SPEED) {
+            String.format("%d°C,  %d mph", current.temperature, Util.kmphToMph(current.windSpeed))
+        } else {
+            String.format("%d°C", current.temperature)
+        }
+    }
+
     private fun setupUi(now: Current, soon: NextHour) {
         weather_temperature.text = formatTemperature(now, soon)
         if (soon.isPrecip) {
             show(weather_summary)
             val minsToPrecip = soon.timeToPrecip
-            weather_summary.visibility = View.VISIBLE
             if (minsToPrecip < 5) {
                 weather_summary.text = getString(
                     R.string.precip_now,
